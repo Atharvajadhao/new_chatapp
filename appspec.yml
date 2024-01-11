@@ -4,12 +4,16 @@ files:
   - source: / 
     destination: /root/new_chatapp
 hooks:
+  ApplicationStop: 
+    - location: scripts/AppStop.sh
+      timeout: 300
   BeforeInstall:
     - location: scripts/stop_server
       timeout: 300
-      runas: root
-  ApplicationStop:
-    - location: scripts/start_server
+  ApplicationStart:
+    - location: scripts/AppStart.sh
       timeout: 300
-      runas: root
+  ValidateService:
+    - location: scripts/AppStatus.sh
+      timeout: 300
 
