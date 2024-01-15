@@ -8,14 +8,12 @@ pipeline{
         }
         stage('build') {
             steps {
-               sshagent(['jenkins-deploy']) {
-                   sh "scp -r -o StrictHostKeyChecking=no fundoo ubuntu@10.0.1.127:/home/ubuntu/new_chatapp "
-               }
+                sh "scp -r -o fundoo /home/ubuntu/new_chatapp "
             }
         }
         stage('deploy') {
             steps {
-               sh 'ssh -i /var/lib/jenkins/jenkins.pem ubuntu@10.0.1.127 "bash /home/ubuntu/new_chatapp/scripts/Start_Server.sh"'
+               sh 'bash /home/ubuntu/new_chatapp/scripts/AppStart.sh"'
             }
         }
     }
