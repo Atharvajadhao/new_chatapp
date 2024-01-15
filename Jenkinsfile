@@ -14,7 +14,7 @@ pipeline {
                     label "${BRANCH}-node"
                 }
                 stages {
-                    stage('Checkout') {
+                    stage('Git Pull') {
                         steps {
                             script {
                                 git 'https://github.com/Atharvajadhao/new_chatapp.git'
@@ -30,14 +30,8 @@ pipeline {
                         }
                     }
                     stage('Deploy') {
-                        when {
-                            expression { BRANCH == 'master' }
-                        }
                         steps {
-                            script {
-                                // Deployment steps for master branch
-                                input message: 'Manual approval for deployment'
-                            }
+                            sh 'bash /home/ubuntu/new_chatapp/scripts/AppStart.sh'
                         }
                     }
                 }
