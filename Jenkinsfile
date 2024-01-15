@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage("Git Pull"){
             steps{
-                git 'https://github.com/Priya412-coder/new_chatapp-1.git'
+                git 'https://github.com/Atharvajadhao/new_chatapp.git'
             }
         }
         stage('Build') {
