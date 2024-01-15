@@ -1,5 +1,5 @@
 pipeline{
-    agent any
+    agent { label 'prod-node-1' }
     stages{
         stage("Git Pull"){
             steps{
