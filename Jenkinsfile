@@ -13,7 +13,7 @@ pipeline{
         }
         stage('Deploy') {
             steps {
-               sh 'bash /home/ubuntu/new_chatapp/scripts/AppStart.sh"'
+               sh 'bash /home/ubuntu/new_chatapp/scripts/AppStart.sh'
             }
         }
     }
