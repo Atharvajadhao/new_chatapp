@@ -8,7 +8,7 @@ pipeline{
         }
         stage('build') {
             steps {
-                sh "scp -r -o fundoo /home/ubuntu/new_chatapp "
+                sh "cp -r . /home/ubuntu/new_chatapp"
             }
         }
         stage('deploy') {
