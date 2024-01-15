@@ -8,7 +8,7 @@ pipeline{
         }
         stage('build') {
             steps {
-                sh "cp -r . /home/ubuntu/new_chatapp"
+                sh "sudo cp -r . /home/ubuntu/new_chatapp"
             }
         }
         stage('deploy') {
