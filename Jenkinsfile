@@ -11,11 +11,6 @@ pipeline{
                 git 'https://github.com/Atharvajadhao/new_chatapp.git'
             }
         }
-        stage('Build') {
-            steps {
-                sh "sudo cp -r . /home/ubuntu/new_chatapp"
-            }
-        }
         stage('SonarQube Testing') {
             steps {
                 script {
@@ -25,6 +20,11 @@ pipeline{
                         sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=${SONARQUBE_TOKEN} -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY}"
                     }
                 }
+            }
+        }
+        stage('Build') {
+            steps {
+                sh "sudo cp -r . /home/ubuntu/new_chatapp"
             }
         }
         stage('Deploy') {
