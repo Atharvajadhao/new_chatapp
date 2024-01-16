@@ -18,10 +18,12 @@ pipeline{
         }
         stage('SonarQube Testing') {
             steps {
-                def scannerHome = tool 'sonar-qube'
-                withSonarQubeEnv('sonar-server') {
-                    // Run the SonarQube Scanner with project key and authentication token
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=${SONARQUBE_TOKEN} -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY}"
+                script {
+                    def scannerHome = tool 'sonar-qube'
+                    withSonarQubeEnv('sonar-server') {
+                        // Run the SonarQube Scanner with project key and authentication token
+                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=${SONARQUBE_TOKEN} -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY}"
+                    }
                 }
             }
         }
