@@ -2,7 +2,7 @@ pipeline{
     agent { label 'prod-node-1' }
     environment {
         SONARQUBE_HOME = tool 'sonar-qube'
-        SONARQUBE_TOKEN = credentials('squ_136e23008e031f0edd99fe8fcc25f4e41546cfec')
+        SONARQUBE_TOKEN = credentials('squ_c604c48fd338cab30db5a2d3c5b304444080e246')
         SONARQUBE_PROJECT_KEY = 'new_chatapp'
     }
     stages{
