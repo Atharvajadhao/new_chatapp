@@ -1,0 +1,21 @@
+pipeline{
+    agent { label 'prod-node-1' }
+    stages{
+        stage ("Git Pull") {
+            steps{
+                git 'https://github.com/Atharvajadhao/new_chatapp.git'
+            }
+        }
+        stage ('Build') {
+            steps {
+                sh "sudo cp -r . /root/new_chatapp"
+                sh "cd /root/new_chatapp && source venv/bin/activate && pip install -r /fundoo/requirements.txt"
+            }
+        }
+        stage ('Deploy') {
+            steps {
+               sh 'cd /root/new_chatapp/fundoo/ && python3 manage.py runserver 0.0.0.0:8000'
+            }
+        }
+    }
+}
