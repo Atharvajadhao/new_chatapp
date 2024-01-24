@@ -16,7 +16,7 @@ pipeline {
         stage('Pull Docker Images') {
             steps {
                 script {
-                    withDockerRegistry(url: 'https://hub.docker.com/', credentialsId: 'atharvajadhao', toolName: 'Docker') {
+                    withDockerRegistry(url: 'https://registry.hub.docker.com', credentialsId: 'dckr_pat_0CvKa1dmYphqrvThbzDMhqcb7ns', toolName: 'Docker') {
                         // Pull your Docker images
                         docker.image('atharvajadhao/db-image').pull()
                         docker.image('atharvajadhao/backend-image').pull()
