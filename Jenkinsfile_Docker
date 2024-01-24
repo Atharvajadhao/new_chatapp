@@ -1,26 +1,43 @@
-pipeline{
-    agent { dockerfile true }
-    stages{
-        stage("Build"){
-            steps{
-                sh 'echo Hello World'
+pipeline {
+    agent { label 'docker-node' }
+    
+
+    stages {
+        stage('Create Docker Network') {
+             steps {
+                 script {
+                     // Create Docker network if it doesn't exist
+                     sh "docker network ls -f name=docker_network_comp | grep docker_network_comp || docker network create docker_network_comp"
+                 }
+             }
+        }
+        
+        
+        stage('Pull Docker Images') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-hub-credentials', toolName: 'Docker') {
+                        // Pull your Docker images
+                        docker.image('atharvajadhao/db-image').pull()
+                        docker.image('atharvajadhao/backend-image').pull()
+                        docker.image('atharvajadhao/frontend-image').pull()
+                        
+                        // Run containers on the specified network
+                        docker.image('atharvajadhao/db-image').run(
+                            "--name=custom_con --network=docker_network_comp -p 3306:3306 -e MYSQL_PASSWORD=admin -d"
+                        )
+                    
+                        docker.image('atharvajadhao/backend-image').run(
+                            "--name=app_cont --network=docker_network_comp -p 8000:8000 -d"
+                        )
+                    
+                        docker.image('atharvajadhao/frontend-image').run(
+                            "--name=web_cont --network=docker_network_comp -p 80:80 -d"
+                        )
+                    
+                    }
+                }
             }
         }
-        //stage ("Git Pull") {
-        //    steps{
-        //        git 'https://github.com/Atharvajadhao/new_chatapp.git'
-        //    }
-        //}
-        //stage ('Build') {
-        //    steps {
-        //        sh "sudo cp -r . /root/new_chatapp"
-        //        sh "cd /root/new_chatapp && source venv/bin/activate && pip install -r /fundoo/requirements.txt"
-        //    }
-        //}
-        //stage ('Deploy') {
-        //    steps {
-        //       sh 'cd /root/new_chatapp/fundoo/ && python3 manage.py runserver 0.0.0.0:8000'
-        //    }
-        //}
     }
 }
