@@ -18,7 +18,7 @@ pipeline {
                 script {
                     withDockerRegistry(credentialsId: 'docker-hub-cred', toolName: 'Docker') {
                         // Pull your Docker images
-                        docker.image('atharvajadhao/db-image').pull()
+                        docker.image('atharvajadhao/database-image').pull()
                         docker.image('atharvajadhao/backend-image').pull()
                         docker.image('atharvajadhao/frontend-image').pull()
                         
