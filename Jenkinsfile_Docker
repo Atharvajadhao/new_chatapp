@@ -23,7 +23,7 @@ pipeline {
                         docker.image('atharvajadhao/frontend-image').pull()
                         
                         // Run containers on the specified network
-                        docker.image('atharvajadhao/db-image').run(
+                        docker.image('atharvajadhao/database-image').run(
                             "--name=custom_con --network=docker_network_comp -p 3306:3306 -e MYSQL_PASSWORD=admin -d"
                         )
                     
