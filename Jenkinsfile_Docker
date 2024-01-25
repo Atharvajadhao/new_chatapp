@@ -7,7 +7,7 @@ pipeline {
              steps {
                  script {
                      // Create Docker network if it doesn't exist
-                     sh "docker network ls -f name=docker_network_comp | grep docker_network_comp || docker network create docker_network_comp"
+                     sh "docker network ls -f name=my_network | grep my_network || docker network create my_network"
                  }
              }
         }
@@ -24,15 +24,15 @@ pipeline {
                         
                         // Run containers on the specified network
                         docker.image('atharvajadhao/database-image').run(
-                            "--name=custom_con --network=docker_network_comp -p 3306:3306 -e MYSQL_PASSWORD=admin -d"
+                            "--name=custom_con --network=my_network -p 3306:3306 -e MYSQL_PASSWORD=admin -d"
                         )
                     
                         docker.image('atharvajadhao/backend-image').run(
-                            "--name=app_cont --network=docker_network_comp -p 8000:8000 -d"
+                            "--name=app_cont --network=my_network -p 8000:8000 -d"
                         )
                     
                         docker.image('atharvajadhao/frontend-image').run(
-                            "--name=web_cont --network=docker_network_comp -p 80:80 -d"
+                            "--name=web_cont --network=my_network -p 80:80 -d"
                         )
                     
                     }
