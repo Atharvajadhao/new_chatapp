@@ -24,15 +24,15 @@ pipeline {
                         
                         // Run containers on the specified network
                         docker.image('atharvajadhao/database-image').run(
-                            "--name=custom_con --network=my_network -p 3306:3306 -e MYSQL_PASSWORD=admin -d"
+                            "--name=database --network=my_network -d"
                         )
                     
                         docker.image('atharvajadhao/backend-image').run(
-                            "--name=app_cont --network=my_network -p 8000:8000 -d"
+                            "--name=backend --network=my_network -d"
                         )
                     
                         docker.image('atharvajadhao/frontend-image').run(
-                            "--name=web_cont --network=my_network -p 80:80 -d"
+                            "--name=frontend --network=my_network -p 80:80 -d"
                         )
                     
                     }
